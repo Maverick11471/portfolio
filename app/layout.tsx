@@ -48,9 +48,10 @@ export default function RootLayout({
                 </p>
               </div>
               <div className="ml-10 mb-20"></div>
+              <Footer />
             </div>
           </header>
-          <Footer />
+
           {/* <main className="w-1/2"> */}
           {/* <main>{children}</main> */}
         </div>
