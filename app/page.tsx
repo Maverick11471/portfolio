@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import Intro from "@/components/Intro";
 import Description from "@/components/Description";
 import Section from "@/components/Section";
+import ProjectCarousel from "@/components/ProjectCarousel";
 
 export default function Home() {
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function Home() {
     <main>
       <Intro />
       <Description />
+      <ProjectCarousel />
       <Section />
       <div className="h-screen"></div>
     </main>
