@@ -29,9 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex flex-col lg:flex-row">
-          <div className="lg:fixed lg:w-1/2 bg-gray-900 w-full h-screen text-white flex justify-between flex-col">
-            <div className="ml-10 mt-20">
+        <div className="lg:flex lg:flex-row">
+          <div className=" fixed left-0 top-0 lg:w-1/2 bg-gray-900 w-full h-screen text-white flex justify-between flex-col">
+            <div className=" ml-10 mt-20 ">
               <Header />
             </div>
             <div className="flex flex-col gap-y-4 ml-10">
@@ -50,7 +50,9 @@ export default function RootLayout({
             </div>
           </div>
 
-          <main className="lg:ml-[50%] w-full lg:w-1/2">{children}</main>
+          <main className="mt-[100vh] lg:mt-0 lg:ml-[50%] w-full lg:w-1/2">
+            {children}
+          </main>
         </div>
       </body>
     </html>
