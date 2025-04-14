@@ -30,8 +30,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="lg:flex lg:flex-row">
-          <div className=" fixed left-0 top-0 lg:w-1/2 bg-gray-900 w-full h-screen text-white flex justify-between flex-col">
-            <div className=" ml-10 mt-20 ">
+          <div className="lg:fixed  left-0 top-0  bg-gray-900 w-full h-screen text-white flex justify-between flex-col">
+            <div className=" sticky z-50 ml-10 mt-20 ">
               <Header />
             </div>
             <div className="flex flex-col gap-y-4 ml-10">
@@ -50,7 +50,7 @@ export default function RootLayout({
             </div>
           </div>
 
-          <main className="mt-[100vh] lg:mt-0 lg:ml-[50%] w-full lg:w-1/2">
+          <main className=" lg:w-1/2 lg:ml-[50%] lg:mt-0  w-full ">
             {children}
           </main>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Button from "./Button";
 import styles from "./style.module.scss";
 import Nav from "./Nav";
@@ -27,7 +27,7 @@ const menu = {
   },
 };
 
-export default function Header({ scrollToSection }) {
+export default function Index() {
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -38,7 +38,7 @@ export default function Header({ scrollToSection }) {
         animate={isActive ? "open" : "closed"}
         initial="closed"
       >
-        {isActive && <Nav scrollToSection={scrollToSection} />}
+        {isActive && <Nav />}
       </motion.div>
       <Button
         isActive={isActive}
