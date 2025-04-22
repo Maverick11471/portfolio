@@ -42,11 +42,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const [canScrollRight, setCanScrollRight] = React.useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 드래그 관련 state
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollLeft = initialScroll;
@@ -62,60 +57,48 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
-  // 드래그 핸들러들
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!carouselRef.current) return;
-    isDragging.current = true;
-    carouselRef.current.classList.add("cursor-grabbing");
-    startX.current = e.pageX - carouselRef.current.offsetLeft;
-    scrollLeft.current = carouselRef.current.scrollLeft;
-  };
-
-  const handleMouseLeave = () => {
-    isDragging.current = false;
-    carouselRef.current?.classList.remove("cursor-grabbing");
-  };
-
-  const handleMouseUp = () => {
-    isDragging.current = false;
-    carouselRef.current?.classList.remove("cursor-grabbing");
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !carouselRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - carouselRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5; // 스크롤 속도 조정
-    carouselRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-
-  const scrollLeftHandler = () => {
+  const scrollLeft = () => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
     }
   };
 
-  const scrollRightHandler = () => {
+  const scrollRight = () => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
   };
 
+  const handleCardClose = (index: number) => {
+    if (carouselRef.current) {
+      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const gap = isMobile() ? 4 : 8;
+      const scrollPosition = (cardWidth + gap) * (index + 1);
+      carouselRef.current.scrollTo({
+        left: scrollPosition,
+        behavior: "smooth",
+      });
+      setCurrentIndex(index);
+    }
+  };
+
+  const isMobile = () => {
+    return window && window.innerWidth < 768;
+  };
+
   return (
-    <CarouselContext.Provider value={{ onCardClose: currentIndex }}>
-      <div className="relative w-full ">
+    <CarouselContext.Provider
+      value={{ onCardClose: handleCardClose, currentIndex }}
+    >
+      <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto py-10 md:py-20 scroll-smooth [scrollbar-width:none]"
           ref={carouselRef}
           onScroll={checkScrollability}
-          onMouseDown={handleMouseDown}
-          onMouseLeave={handleMouseLeave}
-          onMouseUp={handleMouseUp}
-          onMouseMove={handleMouseMove}
         >
           <div
             className={cn(
-              "absolute right-0  z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l"
+              "absolute right-0  z-[1000] h-auto  w-[5%] overflow-hidden bg-gradient-to-l"
             )}
           ></div>
 
@@ -142,12 +125,28 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   },
                 }}
                 key={"card" + index}
-                className="last:pr-[5%]  md:last:pr-[33%]  rounded-3xl"
+                className="last:pr-[5%] md:last:pr-[33%]  rounded-3xl"
               >
                 {item}
               </motion.div>
             ))}
           </div>
+        </div>
+        <div className="flex justify-end gap-2 mr-10">
+          <button
+            className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
+            onClick={scrollLeft}
+            disabled={!canScrollLeft}
+          >
+            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
+          </button>
+          <button
+            className="relative z-40 h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center disabled:opacity-50"
+            onClick={scrollRight}
+            disabled={!canScrollRight}
+          >
+            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
+          </button>
         </div>
       </div>
     </CarouselContext.Provider>
@@ -166,8 +165,6 @@ export const Card = ({
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose, currentIndex } = useContext(CarouselContext);
-  const dragStart = useRef<number>(0);
-  const dragEnd = useRef<number>(0);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -241,17 +238,8 @@ export const Card = ({
       </AnimatePresence>
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
-        onMouseDown={(e) => {
-          dragStart.current = e.clientX;
-        }}
-        onMouseUp={(e) => {
-          dragEnd.current = e.clientX;
-          const dragDistance = Math.abs(dragEnd.current - dragStart.current);
-          if (dragDistance < 5) {
-            handleOpen(); // 진짜 클릭일 때만 모달 열기
-          }
-        }}
-        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[30rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10"
+        onClick={handleOpen}
+        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10"
       >
         <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
         <div className="relative z-40 p-8">

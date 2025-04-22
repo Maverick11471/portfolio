@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 const Left: React.FC = () => {
   return (
     <div className="lg:fixed left-0 top-0 bg-gray-900 w-full h-screen text-white flex justify-between flex-col">
-      <div className="sticky z-50 ml-10 mt-20">
+      <div className="sticky top-0 z-[9999] ml-10 mt-20">
         <Header />
       </div>
       <div className="flex flex-col gap-y-4 ml-10">

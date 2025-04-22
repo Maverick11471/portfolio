@@ -1,5 +1,8 @@
+// components/Header.tsx
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import Button from "./Button";
 import styles from "./style.module.scss";
@@ -27,11 +30,28 @@ const menu = {
   },
 };
 
-export default function Header({ scrollToSection }) {
-  const [isActive, setIsActive] = useState(false);
+interface HeaderProps {
+  scrollToSection?: (index: number) => void;
+}
 
-  return (
-    <div className={styles.header}>
+export default function Header({ scrollToSection }: HeaderProps) {
+  const [isActive, setIsActive] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure we only portal after client mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // The JSX to render as a portal
+  const headerContent = (
+    <div
+      className={`
+              ${styles.header}
+              fixed top-0 left-0 w-full z-[9999]
+              ml-10 mt-20
+            `}
+    >
       <motion.div
         className={styles.menu}
         variants={menu}
@@ -40,12 +60,10 @@ export default function Header({ scrollToSection }) {
       >
         {isActive && <Nav scrollToSection={scrollToSection} />}
       </motion.div>
-      <Button
-        isActive={isActive}
-        toggleMenu={() => {
-          setIsActive(!isActive);
-        }}
-      />
+      <Button isActive={isActive} toggleMenu={() => setIsActive((v) => !v)} />
     </div>
   );
+
+  if (!mounted) return null;
+  return createPortal(headerContent, document.body);
 }

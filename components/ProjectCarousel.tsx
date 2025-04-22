@@ -9,9 +9,9 @@ export default function ProjectCarousel() {
   ));
 
   return (
-    <div className="w-full h-full py-20">
-      <h2 className=" pl-4 max-w-screen mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
-        Get to know your iSad.
+    <div className="w-full min-h-screen py-20 bg-white z-10 relative">
+      <h2 className=" pl-4 max-w-screen mx-auto text-xl md:text-5xl font-bold text-black dark:text-neutral-200 font-sans">
+        Projects
       </h2>
       <Carousel items={cards} />
     </div>
@@ -52,14 +52,14 @@ const DummyContent = () => {
 
 const data = [
   {
-    category: "Artificial Intelligence",
-    title: "You can do more with AI.",
+    category: "개인 프로젝트",
+    title: "태권도장 홈페이지",
     src: "",
     content: <DummyContent />,
   },
   {
-    category: "Productivity",
-    title: "Enhance your productivity.",
+    category: "팀 프로젝트",
+    title: "경매 사이트",
     src: "",
     content: <DummyContent />,
   },
