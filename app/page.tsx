@@ -30,12 +30,6 @@ export default function ExamplePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const isScrollingRef = useRef(false); // 스크롤 중복 방지 플래그
 
-  // 섹션 단위 부드러운 스크롤
-  const scrollToSectionByIndex = (index: number) => {
-    sections[index].current?.scrollIntoView({ behavior: "smooth" });
-    setCurrentIndex(index);
-  };
-
   // 스크롤 위치 자동 감지
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +69,7 @@ export default function ExamplePage() {
       {/* 오른쪽 영역: 스크롤 섹션들이 포함됨 */}{" "}
       <div
         id="page-container"
-        className="w-full lg:pl-[50%] flex flex-col overflow-y-auto h-screen"
+        className="w-full lg:pl-[50%] flex flex-col h-screen overflow-y-auto "
         onScroll={handleParallax}
       >
         {/* 작은 화면에서는 왼쪽 영역을 스크롤 섹션의 첫번째로 렌더링 */}
@@ -88,20 +82,20 @@ export default function ExamplePage() {
             <Left />
           </section>
         )}
-        <section ref={introRef} id="intro" className="h-screen sticky top-0">
+        <section ref={introRef} id="intro" className="h-screen  top-0 sticky">
           <Intro />
-        </section>{" "}
+        </section>
         <section
           ref={carouselRef}
           id="projects"
-          className="min-h-[102vh] sticky top-0 z-10"
+          className="min-h-[102vh]  top-0 z-10  "
         >
           <ProjectCarousel />
         </section>
         <section
           ref={descriptionRef}
           id="about-me"
-          className="h-screen sticky top-0 z-20"
+          className="h-screen  top-0 z-20 "
         >
           <Description />
         </section>

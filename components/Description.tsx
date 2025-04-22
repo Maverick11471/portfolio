@@ -6,7 +6,7 @@ import { AnimatedTooltipPreview } from "./Skills";
 
 export default function Description() {
   return (
-    <div className="relative z-10 flex justify-center items-center min-h-screen bg-amber-500">
+    <div className="relative z-10 flex justify-center items-center min-h-screen bg-[#F9E699]">
       <section className="px-6 py-16 max-w-3xl mx-auto text-gray-900">
         <h2 className="text-3xl font-bold mb-8">About me</h2>
 

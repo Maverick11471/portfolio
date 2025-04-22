@@ -49,7 +49,7 @@ export default function Header({ scrollToSection }: HeaderProps) {
       className={`
               ${styles.header}
               fixed top-0 left-0 w-full z-[9999]
-              ml-10 mt-20
+              ml-10 mt-20 
             `}
     >
       <motion.div

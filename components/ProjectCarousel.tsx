@@ -10,9 +10,10 @@ export default function ProjectCarousel() {
 
   return (
     <div className="w-full min-h-screen py-20 bg-white z-10 relative">
-      <h2 className=" pl-4 max-w-screen mx-auto text-xl md:text-5xl font-bold text-black dark:text-neutral-200 font-sans">
-        Projects
-      </h2>
+      <h2 className="text-3xl font-bold px-6 mb-5">Projects</h2>
+      <p className="px-6 text-base lg:text-xl font-medium leading-relaxed">
+        클릭하면 프로젝트에 대한 세부내용이 나옵니다.
+      </p>
       <Carousel items={cards} />
     </div>
   );
