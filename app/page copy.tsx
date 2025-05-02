@@ -63,7 +63,10 @@ export default function ExamplePage() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* 큰 화면(lg)에서는 왼쪽 영역을 고정(fixed)하여 별도 렌더링 */}
-      <div className="hidden  lg:block lg:fixed lg:w-1/2 h-screen  ">
+      <div
+        ref={leftRef}
+        className={` h-screen  top-0 left-0 bg-black transition-all duration-700 ease-in-out`}
+      >
         <Left />
       </div>
       {/* 오른쪽 영역: 스크롤 섹션들이 포함됨 */}{" "}

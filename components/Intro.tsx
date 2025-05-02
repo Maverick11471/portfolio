@@ -6,7 +6,7 @@ import Background from "@/public/images/혁진 오른쪼
 
 export default function Intro() {
   return (
-    <div className="relative w-full min-h-screen">
+    <div className="relative w-full min-h-screen ">
       <Image src={Background} fill alt="image" style={{ objectFit: "cover" }} />
     </div>
   );

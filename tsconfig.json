@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "pages/Nav/anim.js"
-  ],
+, "components/Header/index.tsㅌ"  ],
   "exclude": ["node_modules"]
 }
